@@ -13,7 +13,9 @@ const MONGO_DB_URL =process.env.MONGO_DB_URL;
 const {seedUserData} = require('./models/user.model');
 const {haveBooks} = require('./controller/book.controller');
 const {makeBook} = require('./controller/book.controller');
-const {removeBook} =require('./controller/book.controller')
+const {removeBook} =require('./controller/book.controller');
+const {updateBook} =require('./controller/book.controller')
+
 app.use(cors());
 app.use(express.json());
 
@@ -48,8 +50,10 @@ app.get('/test', (request,response)=>{
 });
 seedUserData();
 app.get('/books',haveBooks);
-app.post('/book',makeBook);
+app.post('./book',makeBook);
 app.delete('/book/:book_id' ,removeBook);
+app.put('/book/:book_id' , updateBook);
+
 
 app.listen(PORT, () =>
  console.log(`listening on ${PORT}`));

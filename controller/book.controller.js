@@ -16,7 +16,7 @@ const haveBooks = (request, response) => {
     });
 }
 
-const makeBook = (req,res) => {
+const makeBook = (req, res) => {
     const myEmail = req.body.myEmail;
     const title = req.body.title;
     console.log(title);
@@ -25,35 +25,50 @@ const makeBook = (req,res) => {
     const status = req.body.status;
     console.log(status);
     console.log(req.body);
-    const newBook= new userModel({
+    const newBook = new userModel({
         myEmail: myEmail,
-        books:{
-            title,
-            description,
-            status,
 
-        }
+        title,
+        description,
+        status,
+        myEmail: myEmail,
+
+
     });
     console.log(newBook);
     newBook.save();
     res.json(newBook);
 }
 
-const removeBook = (req,res) => {
-    try{
-        const id =req.params.book_id;
-        const {myEmail} = req.query;
-        console.log(id);
-        userModel.findOne({myEmail: email} , (error,data) => {
-            data[0].books.splice(id,1);
-            data.save();
+const removeBook = (req, res) => {
+
+    const id = req.params.book_id;
+
+    userModel.deleteOne({ _id: id }, (error, book) => {
+
+        res.json(book.deletedCounts);
+    });
+}
+const updateBook = async (req, res) => {
+    const bookId = req.params.book_id;
+    const { title, description, status } = req.body;
+    userModel.findByIdAndUpdate({ _id: bookId },
+        {
+            title: title,
+            description: description,
+            status: status,
+        },
+        { new: true },
+        (err, data) => {
             res.send(data);
-        });
-        }
-   catch(error){
-       res.send(error.info);
-   }
+        })
 };
-module.exports = {haveBooks,
+  
+
+
+module.exports = {
+    haveBooks,
     makeBook,
-    removeBook}
+    removeBook,
+    updateBook,
+}
