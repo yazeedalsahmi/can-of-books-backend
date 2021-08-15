@@ -20,7 +20,7 @@ const makeBook = (req,res) => {
     const myEmail = req.body.myEmail;
     const title = req.body.title;
     console.log(title);
-    const description = req.body.status;
+    const description = req.body.description;
     console.log(description);
     const status = req.body.status;
     console.log(status);
