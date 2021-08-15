@@ -70,5 +70,5 @@ module.exports = {
     haveBooks,
     makeBook,
     removeBook,
-    updateBook
+    updateBook,
 }

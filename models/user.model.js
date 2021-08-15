@@ -1,11 +1,12 @@
 
 const mongoose = require('mongoose');
-const bookSchema = require('./book.model');
 
 
 const userSchema = new mongoose.Schema({
+    title:{ type:String},
+    description:{ type:String},
+    status:{ type:String},
     myEmail: {type: String },
-    books: [bookSchema]
  });
  const userModel = mongoose.model('users' , userSchema);
  const seedUserData = () => {
